@@ -1,0 +1,122 @@
+﻿
+@using Abp.Authorization.Users
+@model WeChat.Web.Models.Account.LoginFormViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录-微信管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    @Styles.Render("~/Bundles/admin/css")
+    <link rel="stylesheet" href="@Url.Content("~/Scripts/plugins/iCheck/square/blue.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Scripts/sweetalert/sweet-alert.css")"/>
+    <!--[if lt IE 9]>
+        <script src="@Url.Content("~/Scripts/others/html5shiv.js")"></script>
+        <script src="@Url.Content("~/Scripts/others/respond.min.js")"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition login-page" style="height: auto;">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>微信</b>管理系统</a>
+        </div>
+        <div class="login-box-body" id="LoginArea">
+            <p class="login-box-msg">欢迎使用微信管理系统</p>
+            <form id="form">
+                <div class="form-group has-feedback">
+                    <input type="text" id="UserInput" name="user" class="form-control" placeholder="用户名"   maxlength="@AbpUserBase.MaxUserNameLength">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" id="PasswordInput" name="pwd" class="form-control" placeholder="密码"  maxlength="@AbpUserBase.MaxPlainPasswordLength">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input id="RememberMeInput" type="checkbox">记住我
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <button type="submit" id="LoginButton" class="btn btn-primary btn-block btn-flat" style="margin-top: 5px;">登录</button>
+                    </div>
+                    <input id="ReturnUrl" type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+                    <input id="ReturnUrlHash" type="hidden" name="returnUrlHash" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="@Url.Content("~/Scripts/plugins/jQuery/jquery-2.2.3.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-validate.bootstrap-tooltip.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/iCheck/icheck.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Scripts/others/spinjs/spin.js")"></script>
+    <script src="@Url.Content("~/Scripts/others/spinjs/jquery.spin.js")"></script>
+    <script src="@Url.Content("~/Scripts/toastr.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/sweetalert/sweet-alert.min.js")"></script>
+    @Scripts.Render("~/Bundles/abp")
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%'
+            });
+            $("#form").validate({
+                rules: {
+                    user: {
+                        required: true
+                    },
+                    pwd: {
+                        required: true
+                    }
+                },
+                messages: {
+                    user: "用户名不能为空！",
+                    pwd:"密码不能为空！"
+                },
+                tooltip_options: {
+                    user: {
+                        trigger: 'focus',
+                        placement: 'top'
+                    },
+                    pwd: {
+                        trigger: 'focus',
+                        placement: 'top'
+                    }
+                }
+            });
+            $('#LoginButton').click(function (e) {
+                if (!$("#form").valid()) {
+                    return;
+                }
+                e.preventDefault();
+                abp.ui.setBusy(
+                    $('#LoginArea'),
+                    abp.ajax({
+                        url: abp.appPath + 'Admin/Home/Login',
+                        type: 'POST',
+                        data: JSON.stringify({
+                            usernameOrEmailAddress: $('#UserInput').val(),
+                            password: $('#PasswordInput').val(),
+                            rememberMe: $('#RememberMeInput').is(':checked'),
+                            returnUrlHash: $('#ReturnUrlHash').val(),
+                            returnUrl: $('#ReturnUrl').val()
+                        })
+                    })
+                );
+            });
+            $('#ReturnUrlHash').val(location.hash);
+            $('#LoginForm input:first-child').focus();
+        });
+    </script>
+</body>
+</html>
