@@ -14,5 +14,7 @@ namespace WeChat.Users
         Task<ListResultDto<UserListDto>> GetUsers();
 
         Task CreateUser(CreateUserInput input);
+
+        Task UpdateUser(UpdateUserInput input);
     }
 }

@@ -9,11 +9,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>登录-微信管理系统</title>
+    <title>登录-管理系统</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @Styles.Render("~/Bundles/admin/css")
     <link rel="stylesheet" href="@Url.Content("~/Scripts/plugins/iCheck/square/blue.css")">
-    <link rel="stylesheet" href="@Url.Content("~/Scripts/sweetalert/sweet-alert.css")"/>
     <!--[if lt IE 9]>
         <script src="@Url.Content("~/Scripts/others/html5shiv.js")"></script>
         <script src="@Url.Content("~/Scripts/others/respond.min.js")"></script>
@@ -28,11 +27,11 @@
             <p class="login-box-msg">欢迎使用微信管理系统</p>
             <form id="form">
                 <div class="form-group has-feedback">
-                    <input type="text" id="UserInput" name="user" class="form-control" placeholder="用户名"   maxlength="@AbpUserBase.MaxUserNameLength">
+                    <input type="text" id="UserInput" name="user" class="form-control" placeholder="用户名"   maxlength="@AbpUserBase.MaxUserNameLength" value="admin">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" id="PasswordInput" name="pwd" class="form-control" placeholder="密码"  maxlength="@AbpUserBase.MaxPlainPasswordLength">
+                    <input type="password" id="PasswordInput" name="pwd" class="form-control" placeholder="密码"  maxlength="@AbpUserBase.MaxPlainPasswordLength" value="123qwe">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
@@ -102,7 +101,7 @@
                 abp.ui.setBusy(
                     $('#LoginArea'),
                     abp.ajax({
-                        url: abp.appPath + 'Admin/Home/Login',
+                        url: abp.appPath + 'Admin/Account/Login',
                         type: 'POST',
                         data: JSON.stringify({
                             usernameOrEmailAddress: $('#UserInput').val(),

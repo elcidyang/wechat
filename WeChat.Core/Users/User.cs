@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Abp.Authorization.Users;
 using Abp.Extensions;
 using Microsoft.AspNet.Identity;
@@ -7,7 +8,7 @@ namespace WeChat.Users
 {
     public class User : AbpUser<User>
     {
-        public const string DefaultPassword = "123qwe";
+        public const string DefaultPassword = "000000";
 
         public static string CreateRandomPassword()
         {
@@ -26,5 +27,17 @@ namespace WeChat.Users
                 Password = new PasswordHasher().HashPassword(password)
             };
         }
+
+        /// <summary>
+        /// 用户头像
+        /// </summary>
+        [StringLength(255)]
+        public virtual string AvatarUrl { get; set; }
+
+        /// <summary>
+        /// 站点主题
+        /// </summary>
+        [StringLength(32)]
+        public virtual  string Theme { get; set; }
     }
 }

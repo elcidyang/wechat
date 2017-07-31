@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="~/favicon.ico">
-    <title>@ViewBag.Title-微信管理系统</title>
+    <title>@ViewBag.Title-管理系统</title>
     @Styles.Render("~/Bundles/admin/css")
     @RenderSection("styles", required: false)
     <script type="text/javascript">
@@ -20,17 +20,36 @@
         <script src="@Url.Content("~/Scripts/others/respond.min.js")"></script>
     <![endif]-->
 </head>
-<body class="sidebar-mini skin-purple-light fixed" style="height: auto;">
-<div class="wrapper" style="height: auto;">
-    @Html.Partial("_Header")
-    @Html.Partial("_SideBar")
-    <div class="content-wrapper">
-        @RenderBody()
+@{
+    var theme = Html.Action("Theme", "Layout").ToString();
+}
+<body class="sidebar-mini @(theme==""?"skin-purple-light":theme) fixed" style="height: auto;">
+    <div class="wrapper" style="height: auto;">
+        @Html.Action("Header", "Layout", new { area = "Admin" })
+        @Html.Action("SideBar", "Layout", new { area = "Admin" })
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        @Html.Action("Footer", "Layout", new { area = "Admin" })
+        @Html.Action("ControlSideBar", "Layout", new { area = "Admin" })
     </div>
-    @Html.Partial("_Footer")
-    @Html.Partial("_ControlSideBar")
-</div>
-@Scripts.Render("~/Bundles/admin/js")
+    @Scripts.Render("~/Bundles/admin/js")
+    <script src="@Url.Content("~/Scripts/toastr.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/sweetalert/sweet-alert.min.js")"></script>
+    @Scripts.Render("~/Bundles/abp")
+    @RenderSection("scripts", required: false)
+    <script>
+    $(function() {
+        $("[data-skin]").on('click', function () {
+            $.post('@Url.Action("ModifySkin","Home")?skin=' + $(this).data('skin'), null, function (data) {
+                if (data.result.success === true) {
+                    abp.notify.success(data.result.msg);
+                } else {
+                    abp.notify.error(data.result.msg);
+                }
+            });
+        });
+    });
+    </script>
 </body>
-@RenderSection("scripts", required: false)
 </html>

@@ -1,7 +1,8 @@
-﻿<header class="main-header">
+﻿@model WeChat.Web.Areas.Admin.Models.AdminInfoViewModel
+<header class="main-header">
     <a href="@Url.Action("Index","Home",new {area="Admin"})" class="logo">
-        <span class="logo-mini"><b>微</b></span>
-        <span class="logo-lg"><b>微信管理系统</b></span>
+        <span class="logo-mini"><b>管</b></span>
+        <span class="logo-lg"><b>管理系统</b></span>
     </a>
     <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -49,22 +50,22 @@
                 </li>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="~/Content/images/default-avatar.jpg" class="user-image" alt="用户头像">
-                        <span class="hidden-xs">李卫星</span>
+                        <img src="@(string.IsNullOrEmpty(Model.LoginInformations.User.AvatarUrl)?Url.Content("~/Content/images/default-avatar.jpg"):Url.Content("~/"+Model.LoginInformations.User.AvatarUrl))" class="user-image" alt="用户头像">
+                        <span class="hidden-xs">@Model.LoginInformations.User.UserName</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img src="~/Content/images/default-avatar.jpg" class="img-circle" alt="用户头像">
+                            <img src="@(string.IsNullOrEmpty(Model.LoginInformations.User.AvatarUrl)?Url.Content("~/Content/images/default-avatar.jpg"):Url.Content("~/"+Model.LoginInformations.User.AvatarUrl))" class="img-circle" alt="用户头像">
                             <p>
-                                李卫星 - 系统管理员
+                                @Model.LoginInformations.User.UserName - @Model.LoginInformations.User.Name
                             </p>
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">修改信息</a>
+                                <a href="@Url.Action("ModifyUserInfo","Home")" class="btn btn-default btn-flat">修改密码</a>
                             </div>
                             <div class="pull-right">
-                                <a href="@Url.Action("Logout", "Home")" class="btn btn-default btn-flat">退出系统</a>
+                                <a href="@Url.Action("Logout", "Account")" class="btn btn-default btn-flat">退出系统</a>
                             </div>
                         </li>
                     </ul>

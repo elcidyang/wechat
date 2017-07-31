@@ -4,6 +4,7 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.AutoMapper;
 using Abp.Domain.Repositories;
+using Abp.Threading;
 using WeChat.Authorization;
 using WeChat.Users.Dto;
 using Microsoft.AspNet.Identity;
@@ -55,6 +56,13 @@ namespace WeChat.Users
             user.IsEmailConfirmed = true;
 
             CheckErrors(await UserManager.CreateAsync(user));
+        }
+
+        public async Task UpdateUser(UpdateUserInput input)
+        {
+            var user = _userRepository.Get(input.Id);
+            user.Theme = input.Theme;
+            CheckErrors(await UserManager.UpdateAsync(user));
         }
     }
 }

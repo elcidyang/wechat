@@ -81,6 +81,8 @@ namespace WeChat.Web
                     .Include("~/Content/ionicons.min.css", new CssRewriteUrlTransform())
                     .Include("~/Content/AdminLTE.css", new CssRewriteUrlTransform())
                     .Include("~/Content/skins/_all-skins.min.css", new CssRewriteUrlTransform())
+                    .Include("~/Scripts/sweetalert/sweet-alert.css", new CssRewriteUrlTransform())
+                    .Include("~/Content/toastr.css", new CssRewriteUrlTransform())
             );
             bundles.Add(
                 new ScriptBundle("~/Bundles/admin/js")

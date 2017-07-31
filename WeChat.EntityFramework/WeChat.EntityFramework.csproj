@@ -146,6 +146,18 @@
     <Compile Include="Migrations\201707280308022_Initial.Designer.cs">
       <DependentUpon>201707280308022_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707300840415_Added_AvatarUrl_To_User.cs" />
+    <Compile Include="Migrations\201707300840415_Added_AvatarUrl_To_User.Designer.cs">
+      <DependentUpon>201707300840415_Added_AvatarUrl_To_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707300844581_Modified_AvatarUrl_To_User.cs" />
+    <Compile Include="Migrations\201707300844581_Modified_AvatarUrl_To_User.Designer.cs">
+      <DependentUpon>201707300844581_Modified_AvatarUrl_To_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707310127417_Add_Theme_To_User.cs" />
+    <Compile Include="Migrations\201707310127417_Add_Theme_To_User.Designer.cs">
+      <DependentUpon>201707310127417_Add_Theme_To_User.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="WeChatDataModule.cs" />
@@ -171,6 +183,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707280308022_Initial.resx">
       <DependentUpon>201707280308022_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707300840415_Added_AvatarUrl_To_User.resx">
+      <DependentUpon>201707300840415_Added_AvatarUrl_To_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707300844581_Modified_AvatarUrl_To_User.resx">
+      <DependentUpon>201707300844581_Modified_AvatarUrl_To_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707310127417_Add_Theme_To_User.resx">
+      <DependentUpon>201707310127417_Add_Theme_To_User.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
